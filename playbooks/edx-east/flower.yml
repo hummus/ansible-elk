@@ -1,6 +1,0 @@
-- name: Deploy celery flower (monitoring tool)
-  hosts: all
-  sudo: True
-  gather_facts: True
-  roles:
-    - flower

@@ -1,6 +1,0 @@
-- name: Deploy the edx_ansible role
-  hosts: all
-  sudo: True
-  gather_facts: False
-  roles:
-    - edx_ansible
