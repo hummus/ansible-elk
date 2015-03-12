@@ -29,18 +29,11 @@
 #    - elasticsearch
 #
 
-- name: download elasticsearch
-  get_url: >
-    url={{ elasticsearch_url }}
-    dest=/var/tmp/{{ elasticsearch_file }}
-    force=no
-  register: elasticsearch_reinstall
+- include: install_rh.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Amazon'
 
-- name: install elasticsearch from local package
-  shell: >
-    dpkg -i  --force-confold /var/tmp/elasticsearch-{{ elasticsearch_version }}.deb
-    executable=/bin/bash
-  when: elasticsearch_reinstall.changed
+- include: install_deb.yml
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: create directories
   file: >
@@ -57,7 +50,7 @@
   template: >
     src=etc/default/elasticsearch.j2 dest=/etc/default/elasticsearch
   when: ELASTICSEARCH_CLUSTERED
-    
+
 - name: drop the elasticsearch config
   template: >
     src=edx/etc/elasticsearch/elasticsearch.yml.j2 dest={{ elasticsearch_cfg_dir }}/elasticsearch.yml
@@ -69,22 +62,27 @@
     src=edx/etc/elasticsearch/logging.yml.j2 dest={{ elasticsearch_cfg_dir }}/logging.yml
     mode=0744
   when: ELASTICSEARCH_CLUSTERED  
-    
+
   # Plugin installation fails hard when the plugin already
   # exists. This is problematic if this is upgraded.
 
 - name: check if the bigdesk plugin is installed
   stat: path=/usr/share/elasticsearch/plugins/bigdesk
   register: bigdesk
-  
+
 - name: install bigdesk plugin
   shell: >
-    /usr/share/elasticsearch/bin/plugin -install lukas-vlcek/bigdesk/2.2.0
+    /usr/share/elasticsearch/bin/plugin -install lukas-vlcek/bigdesk/2.5.0
   when: bigdesk.stat.isdir is not defined
-  
-- name: Ensure elasticsearch is enabled and started
-  service: name=elasticsearch state=started enabled=yes
 
-- name: Restart elastic when there has been an upgrade
-  service: name=elasticsearch state=restarted enabled=yes
-  when: elasticsearch_reinstall.changed
+- name:
+  command: test -f /.dockerinit 
+  ignore_errors: true
+  register: is_container
+
+
+- include: start_supervisord.yml
+  when: is_container
+
+- include: start_service.yml
+  when: not is_container

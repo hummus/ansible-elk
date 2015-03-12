@@ -74,6 +74,18 @@
 - name: create the edxadmin group
   group: name=edxadmin state=present
 
+- name: install sudo
+  apt: >
+    name=sudo
+    state=latest
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: install sudo
+  yum: >
+    name=sudo
+    state=latest
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Amazon'
+
 # some AMIs (such as EMR master nodes) don't read the config files out of /etc/sudoers.d by default
 - name: ensure sudoers.d is read
   lineinfile: >

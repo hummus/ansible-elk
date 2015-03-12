@@ -56,6 +56,19 @@ COMMON_ENABLE_DATADOG: False
 COMMON_ENABLE_SPLUNKFORWARDER: False
 COMMON_ENABLE_NEWRELIC: False
 COMMON_TAG_EC2_INSTANCE: False
+
+setuptools_url: https://bootstrap.pypa.io/ez_setup.py
+
+common_rh_pkgs:
+  - zlib
+  - tar
+  - rsyslog
+  - ntp
+  - git
+  - curl
+  - python
+  - python-devel
+
 common_debian_pkgs:
   - ntp
   - ack-grep

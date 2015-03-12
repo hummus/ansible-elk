@@ -1,0 +1,18 @@
+- name: download elasticsearch rpm
+  get_url: >
+    url={{ elasticsearch_url }}/{{ elasticsearch_file_rpm }}
+    dest=/var/tmp/{{ elasticsearch_file_rpm }}
+    force=no
+  register: elasticsearch_reinstall
+
+- name: install elasticsearch from local package
+  shell: >
+    rpm -i  /var/tmp/{{ elasticsearch_file_rpm }}
+    executable=/bin/bash
+
+# when: elasticsearch_reinstall.changed
+
+- name: add elasticsearch user
+  user: > 
+    name={{ elasticsearch_user }}
+    system=yes

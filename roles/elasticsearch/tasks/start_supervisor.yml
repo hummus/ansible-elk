@@ -1,0 +1,23 @@
+- name: pip install virtualenv
+  pip: >
+    name=supervisor
+    state=present
+
+- name: create supervisor config
+  template: >
+    src=supervisord.conf.j2
+    dest=/etc/supervisord.conf
+
+# Manage the state of program group to be in 'started' state.
+- name: Ensure elasticsearch is enabled and started
+  supervisorctl: >
+    name=elasticsearch 
+    state=started
+
+- name: Restart elastic when there has been an upgrade
+  service: >
+    name=elasticsearch
+    state=restarted
+    enabled=yes
+  when: elasticsearch_reinstall.changed
+

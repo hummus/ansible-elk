@@ -1,0 +1,12 @@
+- name: download elasticsearch deb
+  get_url: >
+    url={{ elasticsearch_url }}/{{ elasticsearch_file_deb }}
+    dest=/var/tmp/{{ elasticsearch_file_deb }}
+    force=no
+  register: elasticsearch_reinstall
+
+- name: install elasticsearch from local package
+  shell: >
+    dpkg -i  --force-confold /var/tmp/{{ elasticsearch_file_deb }}
+    executable=/bin/bash
+  when: elasticsearch_reinstall.changed
