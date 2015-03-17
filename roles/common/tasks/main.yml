@@ -157,3 +157,8 @@
     dest=/etc/ssh/sshd_config
     src=sshd_config.j2 mode=0644 owner=root group=root
   notify: restart ssh
+
+- name: are we in a container?
+  command: test -f /.dockerinit 
+  ignore_errors: true
+  register: is_container

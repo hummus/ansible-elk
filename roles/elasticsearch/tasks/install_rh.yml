@@ -9,9 +9,9 @@
   shell: >
     rpm -i  /var/tmp/{{ elasticsearch_file_rpm }}
     executable=/bin/bash
+    creates=/usr/share/elasticsearch
 
 # when: elasticsearch_reinstall.changed
-
 - name: add elasticsearch user
   user: > 
     name={{ elasticsearch_user }}

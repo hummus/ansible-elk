@@ -75,13 +75,7 @@
     /usr/share/elasticsearch/bin/plugin -install lukas-vlcek/bigdesk/2.5.0
   when: bigdesk.stat.isdir is not defined
 
-- name:
-  command: test -f /.dockerinit 
-  ignore_errors: true
-  register: is_container
-
-
-- include: start_supervisord.yml
+- include: start_supervisor.yml
   when: is_container
 
 - include: start_service.yml

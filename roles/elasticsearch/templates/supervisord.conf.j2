@@ -1,13 +1,3 @@
-minfds=1024                 ; (min. avail startup file descriptors;default 1024)
-minprocs=200                ; (min. avail process descriptors;default 200)
-
-[supervisorctl]
-serverurl=unix:///tmp/supervisor.sock
-
-[rpcinterface:supervisor]
-supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
-
-
 [program:elasticsearch]
 command={{ elasticsearch_bin }} -Des.default.path.home={{ elasticsearch_home }} -Des.default.path.logs=/var/log/elasticsearch -Des.default.path.data=/var/lib/elasticsearch -Des.default.path.work=/tmp/elasticsearch -Des.default.path.conf=/etc/elasticsearch
 autostart=true

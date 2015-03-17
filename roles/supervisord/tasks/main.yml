@@ -1,0 +1,14 @@
+- name: pip install virtualenv
+  pip: >
+    name=supervisor
+    state=present
+
+- name: create supervisor config
+  template: >
+    src=supervisord.conf.j2
+    dest=/etc/supervisord.conf
+
+- name: create /etc/supervisord.d
+  file: >
+    path=/etc/supervisord.d
+    state=directory

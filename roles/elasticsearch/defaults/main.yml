@@ -15,7 +15,7 @@ elasticsearch_file_rpm: "elasticsearch-{{ elasticsearch_version }}.noarch.rpm"
 elasticsearch_file_deb: "elasticsearch-{{ elasticsearch_version }}.deb"
 
 elasticsearch_home: /usr/share/elasticsearch
-elasticsearch_bin: {{ elasticsearch_home }}/bin/elasticsearch
+elasticsearch_bin: "{{ elasticsearch_home }}/bin/elasticsearch"
 
 #
 # Defaults for a single server installation.

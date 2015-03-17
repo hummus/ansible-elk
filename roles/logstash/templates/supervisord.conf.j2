@@ -1,0 +1,11 @@
+[program:logstash]
+environment=PATH="$PATH:/usr/lib/jvm/{{ oraclejdk_base }}/bin"HOME="{{ logstash_app_dir }}",JAVA_OPTS="-Xms512m -Xmx512m"
+directory={{ logstash_app_dir }}
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/logstash/stdout
+redirect_stderr=true
+startsecs=10
+stopsignal=QUIT
+
+command=java -jar {{ logstash_app_dir }}/share/logstash.jar agent -f {{ logstash_app_dir }}/etc/logstash.conf --log {{ logstash_log_dir }}/logstash-indexer.out

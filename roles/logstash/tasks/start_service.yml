@@ -1,0 +1,5 @@
+- name: ensure logstash upstart job is in place
+  template: src=logstash.upstart.conf.j2 dest=/etc/init/logstash.conf owner=root group=root mode=0755
+
+- name: start logstash
+  action: service name=logstash state=started enabled=yes

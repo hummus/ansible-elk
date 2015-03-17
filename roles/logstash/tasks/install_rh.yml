@@ -1,0 +1,9 @@
+- name: Ensure epel is installed
+  yum: >
+    pkg=epel-release
+    state=installed
+
+- name: Ensure app apt dependencies are installed
+  yum: >
+    pkg=redis
+    state=installed

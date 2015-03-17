@@ -1,0 +1,4 @@
+- name: Ensure app apt dependencies are installed
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - redis-server

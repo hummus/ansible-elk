@@ -1,0 +1,11 @@
+- name: create supervisor config
+  template: >
+    src=supervisord.conf.j2
+    dest=/etc/supervisord.d/logstash.conf
+
+# Manage the state of program group to be in 'started' state.
+- name: Ensure logstash is enabled and started
+  supervisorctl: >
+    name=logstash 
+    state=started
+
