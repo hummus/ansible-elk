@@ -85,7 +85,7 @@
 
 - name: Install rsyslog configuration for edX
   template: >
-    dest=/etc/rsyslog.d/99-edx.conf
+    dest=/etc/rsyslog.d/99-disco.conf
     src=edx_rsyslog.j2
     owner=root group=root mode=644
   notify: restart rsyslogd
@@ -98,7 +98,7 @@
 - name: Install logrotate configuration for edX
   template: >
     dest=/etc/logrotate.d/hourly/edx-services
-    src=etc/logrotate.d/hourly/edx_logrotate.j2
+    src=etc/logrotate.d/hourly/disco_logrotate.j2
     owner=root group=root mode=644
 
 - name: Install logrotate configuration for tracking file

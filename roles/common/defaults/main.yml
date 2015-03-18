@@ -1,14 +1,13 @@
 
 # Override these variables
 # to change the base directory
-# where edX is installed
 
 # Set global htpasswd credentials
 COMMON_ENABLE_BASIC_AUTH: False
-COMMON_HTPASSWD_USER: edx
-COMMON_HTPASSWD_PASS: edx
+COMMON_HTPASSWD_USER: disco
+COMMON_HTPASSWD_PASS: disco
 
-COMMON_BASE_DIR: /edx
+COMMON_BASE_DIR: /disco
 COMMON_DATA_DIR: "{{ COMMON_BASE_DIR}}/var"
 COMMON_APP_DIR: "{{ COMMON_BASE_DIR}}/app"
 COMMON_LOG_DIR: "{{ COMMON_DATA_DIR }}/log"
@@ -62,6 +61,7 @@ setuptools_url: https://bootstrap.pypa.io/ez_setup.py
 common_rh_pkgs:
   - zlib
   - tar
+  - cronie
   - rsyslog
   - ntp
   - git
@@ -104,7 +104,7 @@ common_git_ppa: "ppa:git-core/ppa"
 # supervisor from starting any of the services.
 # Service files will be placed in supervisor's conf.available.d but not linked
 # to supervisors 'conf.d' directory.
-disable_edx_services: False
+disable_disco_services: False
 
 # Some apps run differently in dev mode(forums)
 # so different start scripts are generated in dev mode.

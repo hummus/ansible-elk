@@ -1,5 +1,5 @@
 [program:logstash]
-environment=PATH="$PATH:/usr/lib/jvm/{{ oraclejdk_base }}/bin"HOME="{{ logstash_app_dir }}",JAVA_OPTS="-Xms512m -Xmx512m"
+environment=PATH="$PATH:/usr/lib/jvm/{{ oraclejdk_base }}/bin",HOME="{{ logstash_app_dir }}",JAVA_OPTS="-Xms512m -Xmx512m"
 directory={{ logstash_app_dir }}
 autostart=true
 autorestart=true
