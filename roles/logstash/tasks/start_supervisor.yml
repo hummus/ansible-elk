@@ -7,5 +7,4 @@
 - name: Ensure logstash is enabled and started
   supervisorctl: >
     name=logstash 
-    state=started
-
+    state=restarted

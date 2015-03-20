@@ -12,3 +12,8 @@
   file: >
     path=/etc/supervisord.d
     state=directory
+
+- name: create /etc/supervisord.d
+  command: >
+    supervisord
+    creates=/tmp/supervisor.sock

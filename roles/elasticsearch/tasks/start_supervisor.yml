@@ -8,12 +8,4 @@
 - name: Ensure elasticsearch is enabled and started
   supervisorctl: >
     name=elasticsearch 
-    state=started
-
-- name: Restart elastic when there has been an upgrade
-  service: >
-    name=elasticsearch
     state=restarted
-    enabled=yes
-  when: elasticsearch_reinstall.changed
-
